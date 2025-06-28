@@ -1,0 +1,43 @@
+package com.blindterran.springbootrest;
+
+import com.blindterran.springbootrest.model.JobPost;
+import com.blindterran.springbootrest.service.JobService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
+public class JobRestController {
+    @Autowired
+    private JobService jobService;
+
+    @GetMapping("jobPosts")
+    public List<JobPost> getAllJobs() {
+        return jobService.getAllJobs();
+    }
+
+    @GetMapping("jobPost/{postId}")
+    public JobPost getJobById(@PathVariable("postId") int postId) {
+        return jobService.getJobById(postId);
+    }
+
+    @PostMapping("jobPost")
+    public JobPost addJob(@RequestBody JobPost jobPost) {
+        jobService.addJob(jobPost);
+        return jobService.getJobById(jobPost.getPostId());
+    }
+
+    @PutMapping("jobPost")
+    public JobPost updateJob(@RequestBody JobPost jobPost) {
+        jobService.updateJob(jobPost);
+        return jobService.getJobById(jobPost.getPostId());
+    }
+
+    @DeleteMapping("jobPost/{postId}")
+    public String deleteJobById(@PathVariable("postId") int postId) {
+        jobService.deleteJob(postId);
+        return "Job has been deleted";
+    }
+}
