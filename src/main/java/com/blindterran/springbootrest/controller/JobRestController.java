@@ -1,4 +1,4 @@
-package com.blindterran.springbootrest;
+package com.blindterran.springbootrest.controller;
 
 import com.blindterran.springbootrest.model.JobPost;
 import com.blindterran.springbootrest.service.JobService;
