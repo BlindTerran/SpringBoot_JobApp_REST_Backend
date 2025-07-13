@@ -1,7 +1,9 @@
 package com.blindterran.springbootrest.controller;
 
 import com.blindterran.springbootrest.model.JobPost;
+import com.blindterran.springbootrest.model.User;
 import com.blindterran.springbootrest.service.JobService;
+import com.blindterran.springbootrest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,8 @@ import java.util.Optional;
 public class JobRestController {
     @Autowired
     private JobService jobService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("jobPosts")
     public List<JobPost> getAllJobs() {
@@ -51,5 +55,11 @@ public class JobRestController {
     public String loadAllJobs() {
         jobService.load();
         return "Job has been loaded";
+    }
+
+    @PostMapping("register")
+    public String registerUser(@RequestBody User user) {
+        userService.saveUser(user);
+        return "User has been registered";
     }
 }
